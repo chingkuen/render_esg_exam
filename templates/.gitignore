@@ -1,5 +1,6 @@
 *.xlsx
-.git
+.git/
+.gitignore
 pyvenv.cfg
 database.db
 __pycache__/
