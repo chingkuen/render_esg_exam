@@ -4,17 +4,17 @@ from werkzeug.utils import secure_filename
 import os
 from openpyxl import load_workbook, Workbook
 from sqlalchemy import func
-
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['UPLOAD_FOLDER'] = 'uploads'
-
+import psycopg2
 from extensions import db
 from models import Question
 
-# 初始化 SQLAlchemy 與 Flask 應用
+app = Flask(__name__)
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@hostname/database_name'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://esg_exam_database_user:Cldtx6hjtBy9El374NXUmdXWUP4k5RVb@dpg-cqgga5qju9rs73cds3fg-a.singapore-postgres.render.com/esg_exam_database'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['UPLOAD_FOLDER'] = 'uploads'
+
 db.init_app(app)
 
 @app.route('/')
