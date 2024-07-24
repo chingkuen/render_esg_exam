@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Question</title>
+</head>
+<body>
+    <h1>Delete Question</h1>
+    <p>Are you sure you want to delete the following question?</p>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <td>{{ question.id }}</td>
+        </tr>
+        <tr>
+            <th>題目</th>
+            <td>{{ question.question_name }}</td>
+        </tr>
+        <tr>
+            <th>題目對應章節</th>
+            <td>{{ question.question_chapter }}</td>
+        </tr>
+        <tr>
+            <th>難度</th>
+            <td>{{ question.question_level }}</td>
+        </tr>
+        <tr>
+            <th>題型</th>
+            <td>{{ question.question_type }}</td>
+        </tr>
+        <tr>
+            <th>答案</th>
+            <td>{{ question.answer }}</td>
+        </tr>
+        <tr>
+            <th>選項A</th>
+            <td>{{ question.option_a }}</td>
+        </tr>
+        <tr>
+            <th>選項B</th>
+            <td>{{ question.option_b }}</td>
+        </tr>
+        <tr>
+            <th>選項C</th>
+            <td>{{ question.option_c }}</td>
+        </tr>
+        <tr>
+            <th>選項D</th>
+            <td>{{ question.option_d }}</td>
+        </tr>
+        <tr>
+            <th>詳解</th>
+            <td>{{ question.answer_detail }}</td>
+        </tr>
+    </table>
+    <br>
+    <form method="POST">
+        <button type="submit">Confirm Delete</button>
+        <a href="{{ url_for('question_list', page=1) }}">Cancel</a>
+    </form>
+</body>
+</html>

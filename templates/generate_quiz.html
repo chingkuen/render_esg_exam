@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產生測驗題數量及選項</title>
+<style>
+    .error-message {
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <h2>請設定測驗題數量及選項：</h2>
+    <form id="quizForm" action="generate_quiz" method="POST" onsubmit="return validateForm()">
+        <label for="numQuestions">請輸入欲產生的測驗題數量：</label>
+        <input type="number" id="numQuestions" name="numQuestions" min="1" max="100" required>
+        <br>
+        <span id="numQuestionsError" class="error-message"></span>
+        <br><br>
+        
+        <fieldset>
+            <legend>課程章節</legend>
+            <input type="checkbox" id="section1" name="sections" value="section1">
+            <label for="section1">章節一</label><br>
+            <input type="checkbox" id="section2" name="sections" value="section2">
+            <label for="section2">章節二</label><br>
+            <input type="checkbox" id="section3" name="sections" value="section3">
+            <label for="section3">章節三</label><br>
+            <input type="checkbox" id="section4" name="sections" value="section4">
+            <label for="section4">章節四</label><br>
+            <input type="checkbox" id="section5" name="sections" value="section5">
+            <label for="section5">章節五</label><br>
+            <input type="checkbox" id="section6" name="sections" value="section6">
+            <label for="section6">章節六</label><br>
+            <input type="checkbox" id="section7" name="sections" value="section7">
+            <label for="section7">章節七</label><br>
+            <input type="checkbox" id="section8" name="sections" value="section8">
+            <label for="section8">章節八</label><br>
+            <input type="checkbox" id="section9" name="sections" value="section9">
+            <label for="section9">章節九</label><br>
+            <input type="checkbox" id="section10" name="sections" value="section10">
+            <label for="section10">章節十</label><br>
+        </fieldset>
+        <br>
+        
+        <input type="submit" value="送出">
+        <br>
+        <span id="sectionsError" class="error-message"></span>
+    </form>
+
+    <script>
+        function validateForm() {
+            var numQuestions = document.getElementById('numQuestions').value;
+            var numQuestionsError = document.getElementById('numQuestionsError');
+            var sections = document.querySelectorAll('input[name="sections"]:checked');
+            var sectionsError = document.getElementById('sectionsError');
+
+            // Validate numQuestions
+            if (numQuestions < 1 || numQuestions > 100) {
+                numQuestionsError.textContent = '輸入範圍為1到100';
+                return false;
+            } else {
+                numQuestionsError.textContent = '';
+            }
+
+            // Validate sections selection
+            if (sections.length === 0) {
+                sectionsError.textContent = '請至少選擇一個章節';
+                return false;
+            } else {
+                sectionsError.textContent = '';
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

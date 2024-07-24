@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Quiz</title>
+    <script>
+        // JavaScript 函数来全选或取消全选章节复选框
+        function toggleChapters(checked) {
+            var checkboxes = document.querySelectorAll('input[name="chapter"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = checked;
+            });
+        }
+
+        // JavaScript 函数来全选或取消全选难度复选框
+        function toggleLevels(checked) {
+            var checkboxes = document.querySelectorAll('input[name="level"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = checked;
+            });
+        }
+
+        // JavaScript 函数来全选或取消全选题型复选框
+        function toggleTypes(checked) {
+            var checkboxes = document.querySelectorAll('input[name="type"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = checked;
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Generate Quiz</h1>
+    
+    <form method="POST">
+        <label for="chapter">Select Chapters:</label><br>
+        <input type="checkbox" id="select_all_chapters" onclick="toggleChapters(this.checked)"> Select All<br>
+        {% for chapter in chapters %}
+            <input type="checkbox" name="chapter" value="{{ chapter[0] }}"> {{ chapter[0] }}<br>
+        {% endfor %}<br>
+        
+        <label for="level">Select Levels:</label><br>
+        <input type="checkbox" id="select_all_levels" onclick="toggleLevels(this.checked)"> Select All<br>
+        {% for level in levels %}
+            <input type="checkbox" name="level" value="{{ level[0] }}"> {{ level[0] }}<br>
+        {% endfor %}<br>
+        
+        <label for="type">Select Types:</label><br>
+        <input type="checkbox" id="select_all_types" onclick="toggleTypes(this.checked)"> Select All<br>
+        {% for type in types %}
+            <input type="checkbox" name="type" value="{{ type[0] }}"> {{ type[0] }}<br>
+        {% endfor %}<br>
+        
+        <label for="num_questions">Number of Questions (1-100):</label>
+        <input type="number" id="num_questions" name="num_questions" min="1" max="100" required><br><br>
+        
+        <button type="submit">Generate</button>
+    </form>
+</body>
+</html>

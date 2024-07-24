@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Quiz</title>
+    <style>
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            margin: 0;
+        }
+        .option {
+            padding-left: 40px;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+        .no-print {
+            display: none;
+        }
+        .answer {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .answer-detail {
+            margin-top: 10px;
+            padding-left: 40px;
+            color: green; /* 使用绿色字体 */
+        }
+    </style>
+    <script>
+        function printQuiz(includeAnswers) {
+            var questions = document.querySelectorAll('.question');
+            questions.forEach(function(question) {
+                var answer = question.querySelector('.answer');
+                var underline = question.querySelector('.underline');
+                var answerDetail = question.querySelector('.answer-detail');
+                
+                if (includeAnswers) {
+                    answer.style.display = 'inline';
+                    underline.style.display = 'none';
+                    answerDetail.style.display = 'block';
+                } else {
+                    answer.style.display = 'none';
+                    underline.style.display = 'inline';
+                    answerDetail.style.display = 'none';
+                }
+            });
+
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <h1>Generated Quiz</h1>
+    {% for question in questions %}
+        <div class="question">
+            <p>
+                <span class="answer">{{ question.answer }}.</span>
+                <span class="underline">_____</span>
+                <span class="bold">{{ loop.index }}. {{ question.question_name }}</span>
+            </p>
+            <p class="option">A. {{ question.option_a }}</p>
+            <p class="option">B. {{ question.option_b }}</p>
+            <p class="option">C. {{ question.option_c }}</p>
+            <p class="option">D. {{ question.option_d }}</p>
+            <p class="answer-detail">詳解: {{ question.answer_detail }}</p>
+        </div>
+    {% endfor %}
+
+    <button onclick="printQuiz(false)">Print Quiz</button>
+    <button onclick="printQuiz(true)">Print Quiz with Answers</button>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+</head>
+<body>
+    <h1>Welcome to the Quiz App</h1>
+    <a href="{{ url_for('question_list', page=1) }}">進入題庫</a><br>
+    <a href="{{ url_for('upload') }}">上傳excel檔案匯入題目(請使用相同格式，可參考備分題庫檔案)</a><br>
+    <a href="{{ url_for('download') }}">備分題庫</a><br>
+    <a href="{{ url_for('quiz_generation') }}">Generate Quiz</a><br>
+</body>
+</html>

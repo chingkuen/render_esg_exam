@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Bank</title>
+</head>
+<body>
+    <h1>Question Bank</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>題目</th>
+            <th>題目對應章節</th>
+            <th>難度</th>
+            <th>題型</th>
+            <th>答案</th>
+            <th>選項A</th>
+            <th>選項B</th>
+            <th>選項C</th>
+            <th>選項D</th>
+            <th>詳解</th>
+            <th>Actions</th>
+        </tr>
+        {% for question in questions.items %}
+        <tr>
+            <td>{{ question.id }}</td>
+            <td>{{ question.question_name }}</td>
+            <td>{{ question.question_chapter }}</td>
+            <td>{{ question.question_level }}</td>
+            <td>{{ question.question_type }}</td>
+            <td>{{ question.answer }}</td>
+            <td>{{ question.option_a }}</td>
+            <td>{{ question.option_b }}</td>
+            <td>{{ question.option_c }}</td>
+            <td>{{ question.option_d }}</td>
+            <td>{{ question.answer_detail }}</td>
+            <td>
+                <a href="{{ url_for('edit', id=question.id) }}">Edit</a>
+                <br>
+                <a href="{{ url_for('question_delete', id=question.id) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        {% for page_num in questions.iter_pages() %}
+            {% if page_num %}
+                {% if page_num == questions.page %}
+                    <strong>{{ page_num }}</strong>
+                {% else %}
+                    <a href="{{ url_for('questions', page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>

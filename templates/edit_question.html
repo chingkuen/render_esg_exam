@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Question</title>
+    <style>
+        input[type="text"], select {
+            width: 300px; /* 调整为你需要的宽度 */
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Question</h1>
+    <form method="POST">
+        <label for="question_name">題目:</label>
+        <input type="text" id="question_name" name="question_name" value="{{ fields['question_name'] }}"><br>
+        
+        <label for="question_chapter">題目對應章節:</label>
+        <input type="text" id="question_chapter" name="question_chapter" value="{{ fields['question_chapter'] }}"><br>
+
+        <label for="question_level">難度:</label>
+        <select id="question_level" name="question_level">
+            <option value="容易" {% if fields['question_level'] == '容易' %}selected{% endif %}>容易</option>
+            <option value="中等" {% if fields['question_level'] == '中等' %}selected{% endif %}>中等</option>
+            <option value="困難" {% if fields['question_level'] == '困難' %}selected{% endif %}>困難</option>
+        </select><br>
+
+        <label for="question_type">題型:</label>
+        <select id="question_type" name="question_type">
+            <option value="單選" {% if fields['question_type'] == '單選' %}selected{% endif %}>單選</option>
+            <option value="複選" {% if fields['question_type'] == '複選' %}selected{% endif %}>複選</option>
+        </select><br>
+
+        <label for="answer">答案:</label><br>
+        <input type="radio" id="answer_a" name="answer" value="A" {% if fields['answer'] == 'A' %}checked{% endif %}>
+        <label for="answer_a">選項A</label><br>
+        <input type="radio" id="answer_b" name="answer" value="B" {% if fields['answer'] == 'B' %}checked{% endif %}>
+        <label for="answer_b">選項B</label><br>
+        <input type="radio" id="answer_c" name="answer" value="C" {% if fields['answer'] == 'C' %}checked{% endif %}>
+        <label for="answer_c">選項C</label><br>
+        <input type="radio" id="answer_d" name="answer" value="D" {% if fields['answer'] == 'D' %}checked{% endif %}>
+        <label for="answer_d">選項D</label><br>
+
+        <label for="option_a">選項A:</label>
+        <input type="text" id="option_a" name="option_a" value="{{ fields['option_a'] }}"><br>
+
+        <label for="option_b">選項B:</label>
+        <input type="text" id="option_b" name="option_b" value="{{ fields['option_b'] }}"><br>
+
+        <label for="option_c">選項C:</label>
+        <input type="text" id="option_c" name="option_c" value="{{ fields['option_c'] }}"><br>
+
+        <label for="option_d">選項D:</label>
+        <input type="text" id="option_d" name="option_d" value="{{ fields['option_d'] }}"><br>
+
+        <label for="answer_detail">詳解:</label>
+        <input type="text" id="answer_detail" name="answer_detail" value="{{ fields['answer_detail'] }}"><br>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
