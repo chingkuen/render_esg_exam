@@ -58,6 +58,7 @@
 </head>
 <body>
     <h1>Generated Quiz</h1>
+    <button onclick="window.location.href='{{ url_for('index') }}'">返回首頁</button><br><br>
     {% for question in questions %}
         <div class="question">
             <p>

@@ -32,7 +32,7 @@
 </head>
 <body>
     <h1>Generate Quiz</h1>
-    
+    <button onclick="window.location.href='{{ url_for('index') }}'">返回首頁</button><br><br>
     <form method="POST">
         <label for="chapter">Select Chapters:</label><br>
         <input type="checkbox" id="select_all_chapters" onclick="toggleChapters(this.checked)"> Select All<br>

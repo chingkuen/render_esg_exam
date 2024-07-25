@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Upload Questions</h1>
-    
+    <button onclick="window.location.href='{{ url_for('index') }}'">返回首頁</button><br><br>
     <!-- Display flash messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

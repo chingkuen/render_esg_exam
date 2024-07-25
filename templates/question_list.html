@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Question Bank</h1>
+    <button onclick="window.location.href='{{ url_for('index') }}'">返回首頁</button><br><br>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -49,7 +50,7 @@
                 {% if page_num == questions.page %}
                     <strong>{{ page_num }}</strong>
                 {% else %}
-                    <a href="{{ url_for('questions', page=page_num) }}">{{ page_num }}</a>
+                    <a href="{{ url_for('question_list', page=page_num) }}">{{ page_num }}</a>
                 {% endif %}
             {% else %}
                 ...

@@ -4,7 +4,6 @@ from werkzeug.utils import secure_filename
 import os
 from openpyxl import load_workbook, Workbook
 from sqlalchemy import func
-import psycopg2
 from extensions import db
 from models import Question
 
@@ -12,7 +11,8 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@hostname/database_name'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://esg_exam_database_user:Cldtx6hjtBy9El374NXUmdXWUP4k5RVb@dpg-cqgga5qju9rs73cds3fg-a.singapore-postgres.render.com/esg_exam_database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = 'ov08fJoEUJM98IDWe42yzmyU0R9jRE35MT5KvbCjJFE'
+app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '156025132713563114110595833343437012389')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 db.init_app(app)
@@ -24,7 +24,7 @@ def index():
 @app.route('/question_list/<int:page>')
 def question_list(page=1):
     try:
-        questions = Question.query.paginate(page=page, per_page=50, error_out=False)
+        questions = Question.query.paginate(page=page, per_page=20, error_out=False)
     except Exception as e:
         print(f"Error during pagination: {e}")
         questions = None
@@ -74,8 +74,6 @@ def question_delete(id):
         return redirect(url_for('question_list', page=1))
     return render_template('question_delete.html', question=question)
 
-
-
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
@@ -85,46 +83,47 @@ def upload():
         file.save(filepath)
         wb = load_workbook(filepath)
         sheet = wb.active
-        
-        # 確定有數據的最後一行
+
         max_row = 1
         for row in range(1, sheet.max_row + 1):
             if any(sheet.cell(row=row, column=col).value is not None for col in range(1, 11)):
                 max_row = row
-        
-        duplicate_questions = []
-        new_questions = []
 
-        for row in range(2, max_row + 1):
-            question_name = sheet.cell(row=row, column=1).value
-            existing_question = Question.query.filter_by(question_name=question_name).first()
+        for row in sheet.iter_rows(min_row=2, max_row=max_row, values_only=True):
+            question_name = row[0]
+            question_chapter = row[1]
+            question_level = row[2]
+            question_type = row[3]
+            answer = row[4]
+            option_a = row[5]
+            option_b = row[6]
+            option_c = row[7]
+            option_d = row[8]
+            answer_detail = row[9] if len(row) > 9 else None
             
+            existing_question = Question.query.filter_by(question_name=question_name).first()
             if existing_question:
-                duplicate_questions.append(question_name)
-            else:
-                question = Question(
-                    question_name=question_name,
-                    question_chapter=sheet.cell(row=row, column=2).value,
-                    question_level=sheet.cell(row=row, column=3).value,
-                    question_type=sheet.cell(row=row, column=4).value,
-                    answer=sheet.cell(row=row, column=5).value,
-                    option_a=sheet.cell(row=row, column=6).value,
-                    option_b=sheet.cell(row=row, column=7).value,
-                    option_c=sheet.cell(row=row, column=8).value,
-                    option_d=sheet.cell(row=row, column=9).value,
-                    answer_detail=sheet.cell(row=row, column=10).value,
-                )
-                new_questions.append(question)
-        
-        if duplicate_questions:
-            flash(f'上傳的excel檔案中，含有重複的問題:<br>{duplicate_questions[0]}', 'error')
-        else:
-            for question in new_questions:
-                db.session.add(question)
-            db.session.commit()
-            flash('Questions uploaded successfully!', 'success')
-        
-        return redirect(url_for('upload'))  # 重定向到上传页面
+                flash(f'This question already exists and was not added: {question_name}', 'error')
+                continue
+            
+            question = Question(
+                question_name=question_name,
+                question_chapter=question_chapter,
+                question_level=question_level,
+                question_type=question_type,
+                answer=answer,
+                option_a=option_a,
+                option_b=option_b,
+                option_c=option_c,
+                option_d=option_d,
+                answer_detail=answer_detail,
+            )
+            db.session.add(question)
+
+        db.session.commit()
+        flash('Questions uploaded successfully!')
+        return redirect(url_for('question_list', page=1))
+    
     return render_template('upload.html')
 
 @app.route('/download')
