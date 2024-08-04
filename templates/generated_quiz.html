@@ -20,9 +20,6 @@
         .underline {
             text-decoration: underline;
         }
-        .no-print {
-            display: none;
-        }
         .answer {
             font-weight: bold;
             text-decoration: underline;
@@ -36,6 +33,13 @@
     <script>
         function printQuiz(includeAnswers) {
             var questions = document.querySelectorAll('.question');
+            var buttons = document.querySelectorAll('button');
+            
+            // 隱藏所有按鈕
+            buttons.forEach(function(button) {
+                button.style.display = 'none';
+            });
+
             questions.forEach(function(question) {
                 var answer = question.querySelector('.answer');
                 var underline = question.querySelector('.underline');
@@ -52,7 +56,13 @@
                 }
             });
 
+            // 列印頁面
             window.print();
+
+            // 列印結束後顯示所有按鈕
+            buttons.forEach(function(button) {
+                button.style.display = 'inline-block';
+            });
         }
     </script>
 </head>

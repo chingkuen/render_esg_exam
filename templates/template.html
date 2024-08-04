@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>ESG EXAM</h1>
+    </header>
+    <div class="container">
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('question_list', page=1) }}">進入題庫</a></li>
+                    <li><a href="{{ url_for('upload') }}">上傳excel檔案匯入題目</a></li>
+                    <li><a href="{{ url_for('download') }}">備分題庫</a></li>
+                    <li><a href="{{ url_for('quiz_generation') }}">Generate Quiz</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main>
+            {% block content %}
+            <!-- 這裡是頁面的主要內容 -->
+            {% endblock %}
+        </main>
+    </div>
+</body>
+</html>

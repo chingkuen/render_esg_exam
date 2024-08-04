@@ -7,7 +7,7 @@ from sqlalchemy import func
 from extensions import db
 from models import Question
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@hostname/database_name'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://esg_exam_database_user:Cldtx6hjtBy9El374NXUmdXWUP4k5RVb@dpg-cqgga5qju9rs73cds3fg-a.singapore-postgres.render.com/esg_exam_database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

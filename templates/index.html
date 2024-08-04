@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% extends "template.html" %}
+{% block content %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,4 +14,5 @@
     <a href="{{ url_for('download') }}">備分題庫</a><br>
     <a href="{{ url_for('quiz_generation') }}">Generate Quiz</a><br>
 </body>
+{% endblock %}
 </html>

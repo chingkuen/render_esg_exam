@@ -1,0 +1,55 @@
+body {
+    background-color: #e0f7e0; /* 淺綠色背景 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #004d40; /* 深綠色背景 */
+    color: white;
+    padding: 1em;
+    text-align: center;
+    height: 3em; /* 高度設置為3行 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 3em); /* 減去header的高度 */
+}
+
+aside {
+    background-color: #e0f7e0; /* 淺綠色背景 */
+    padding: 1em;
+    width: 200px;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 10px 0;
+}
+
+nav ul li a {
+    color: #004d40; /* 深綠色字體 */
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    flex-grow: 1;
+    padding: 1em;
+    overflow-y: auto;
+}
