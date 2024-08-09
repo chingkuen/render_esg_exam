@@ -15,8 +15,11 @@
             <nav>
                 <ul>
                     <li><a href="{{ url_for('question_list', page=1) }}">進入題庫</a></li>
+                    <hr>
                     <li><a href="{{ url_for('upload') }}">上傳excel檔案匯入題目</a></li>
+                    <hr>
                     <li><a href="{{ url_for('download') }}">備分題庫</a></li>
+                    <hr>
                     <li><a href="{{ url_for('quiz_generation') }}">Generate Quiz</a></li>
                 </ul>
             </nav>
