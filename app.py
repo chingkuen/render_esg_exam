@@ -104,7 +104,7 @@ def upload():
             existing_question = Question.query.filter_by(question_name=question_name).first()
             if existing_question:
                 flash(f'This question already exists and was not added: {question_name}', 'error')
-                continue
+                return redirect(url_for('upload'))
             
             question = Question(
                 question_name=question_name,
